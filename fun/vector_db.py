@@ -1,6 +1,6 @@
 import chromadb
 
-from app import config, utils
+from fun import config, utils
 
 
 chroma_client = chromadb.PersistentClient(path=config.VECTOR_DB_PATH)

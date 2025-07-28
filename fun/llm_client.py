@@ -2,7 +2,7 @@ from typing import Literal
 
 from openai.types.responses import Response
 from openai import OpenAI
-from app import config
+from fun import config
 
 
 def get_client() -> OpenAI:

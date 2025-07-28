@@ -1,5 +1,5 @@
 [project]
-name = "app"
+name = "fun"
 version = "0.0.0"
 description = "some-rag-learning-project"
 dependencies = [

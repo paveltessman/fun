@@ -1,4 +1,4 @@
-from app import utils
+from fun import utils
 
 
 def test_load_documents() -> None:

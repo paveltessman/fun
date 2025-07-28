@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import TypedDict
 
 from chromadb.utils import embedding_functions
-from app import config
+from fun import config
 
 
 embed = embedding_functions.OpenAIEmbeddingFunction(
