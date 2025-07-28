@@ -13,10 +13,9 @@ def get_client() -> OpenAI:
 
 def invoke(
     prompt: str,
+    model: str,
     messages: list[dict[Literal["role", "content"], str]] | None = None,
-    model: str | None = None,
 ) -> Response:
-    model = model or config.CHAT_MODEL
     client = get_client()
     response = client.responses.create(
         instructions=prompt,
@@ -24,3 +23,13 @@ def invoke(
         model=model,
     )
     return response
+
+
+def ask(question: str, prompt: str | None = None) -> str:
+    prompt = prompt or "You're a helpful assistant"
+    response = invoke(
+        prompt=prompt,
+        messages=[{"role": "user", "content": question}],
+        model=config.CHAT_MODEL,
+    )
+    return response.output_text
