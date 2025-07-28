@@ -1,0 +1,10 @@
+[project]
+name = "app"
+version = "0.0.0"
+description = "some-rag-learning-project"
+dependencies = [
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
