@@ -1,7 +1,6 @@
 data/*
 !data/.gittrack
 !data/doc_examples
-config.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

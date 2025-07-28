@@ -7,7 +7,8 @@ from app import config
 
 
 embed = embedding_functions.OpenAIEmbeddingFunction(
-    api_key=config.OPENAI_API_KEY, model_name=config.EMBEDDING_MODEL
+    api_key_env_var=config.OPENAI_API_KEY_ENV_VAR_NAME,
+    model_name=config.EMBEDDING_MODEL,
 )
 
 

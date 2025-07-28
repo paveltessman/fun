@@ -1,0 +1,19 @@
+import os
+import dotenv
+
+
+dotenv.load_dotenv()
+
+OPENAI_API_KEY_ENV_VAR_NAME = "OPENAI_API_KEY"
+
+# OPENAI SETTINGS
+OPENAI_API_KEY = os.environ[OPENAI_API_KEY_ENV_VAR_NAME]
+CHAT_MODEL = "gpt-4.1-2025-04-14"
+EMBEDDING_MODEL = "text-embedding-3-small"
+
+# VECTOR DB SETTINGS
+VECTOR_DB_PATH = "./data/chroma"
+COLLECTION_NAME = "default"
+
+# MISC
+DEFAULT_DOCS_DIRECTORY = "data/doc_examples"
