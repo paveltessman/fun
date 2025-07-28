@@ -1,5 +1,6 @@
 import click
 from fun import llm_client
+from fun import frontend as front
 
 
 @click.group()
@@ -14,3 +15,14 @@ def ask() -> None:
     question = click.prompt("Enter your question")
     answer = llm_client.ask(question)
     click.echo(answer)
+
+
+@cli.group()
+def frontend():
+    """A frontend app built with Gradio"""
+
+
+@frontend.command()
+def start() -> None:
+    """Start the frontend app where you can ask LLM questions"""
+    front.app.launch()

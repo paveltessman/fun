@@ -25,7 +25,7 @@ def invoke(
     return response
 
 
-def ask(question: str, prompt: str | None = None) -> str:
+def ask(question: str, *, prompt: str | None = None) -> str:
     prompt = prompt or "You're a helpful assistant"
     response = invoke(
         prompt=prompt,
