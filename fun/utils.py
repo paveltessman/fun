@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from chromadb.utils import embedding_functions
-from fun import config
+from openai.types import Embedding
+from fun import config, llm_client
 
 
 embed = embedding_functions.OpenAIEmbeddingFunction(
@@ -22,6 +23,12 @@ class Document:
     name: str
     content: str
     chunks: list[Chunk]
+    embeddings: list[Embedding] | None = None
+
+    async def create_embedding(self) -> None:
+        self.embeddings = await llm_client.get_embeddings(
+            [chunk.content for chunk in self.chunks]
+        )
 
 
 def load_documents(directory: Path | None = None) -> list[Document]:
