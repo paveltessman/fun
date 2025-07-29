@@ -1,5 +1,5 @@
+import asyncio
 import click
-from fun import llm_client
 from fun import frontend as front
 
 
@@ -12,8 +12,10 @@ def cli() -> None:
 @cli.command()
 def ask() -> None:
     """Ask LLM a question (no context is saved)"""
+    from fun import llm_client
+
     question = click.prompt("Enter your question")
-    answer = llm_client.ask(question)
+    answer = asyncio.run(llm_client.ask(question))
     click.echo(answer)
 
 

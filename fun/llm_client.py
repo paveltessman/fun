@@ -1,33 +1,33 @@
 from typing import Literal
 
 from openai.types.responses import Response
-from openai import OpenAI
+from openai import AsyncOpenAI
 from fun import config
 
 
-def get_client() -> OpenAI:
-    return OpenAI(
+def get_client() -> AsyncOpenAI:
+    return AsyncOpenAI(
         api_key=config.OPENAI_API_KEY,
     )
 
 
-def invoke(
+async def invoke(
     prompt: str,
     model: str,
     messages: list[dict[Literal["role", "content"], str]] | None = None,
 ) -> Response:
-    client = get_client()
-    response = client.responses.create(
-        instructions=prompt,
-        input=str(messages),
-        model=model,
-    )
+    async with get_client() as client:
+        response = await client.responses.create(
+            instructions=prompt,
+            input=str(messages),
+            model=model,
+        )
     return response
 
 
-def ask(question: str, *, prompt: str | None = None) -> str:
+async def ask(question: str, *, prompt: str | None = None) -> str:
     prompt = prompt or "You're a helpful assistant"
-    response = invoke(
+    response = await invoke(
         prompt=prompt,
         messages=[{"role": "user", "content": question}],
         model=config.CHAT_MODEL,
