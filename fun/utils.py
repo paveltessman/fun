@@ -1,5 +1,5 @@
+from dataclasses import dataclass
 from pathlib import Path
-from typing import TypedDict
 
 from chromadb.utils import embedding_functions
 from fun import config
@@ -11,12 +11,14 @@ embed = embedding_functions.OpenAIEmbeddingFunction(
 )
 
 
-class Chunk(TypedDict):
+@dataclass
+class Chunk:
     index: int
     content: str
 
 
-class Document(TypedDict):
+@dataclass
+class Document:
     name: str
     content: str
     chunks: list[Chunk]
