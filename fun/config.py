@@ -14,6 +14,8 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 # VECTOR DB SETTINGS
 VECTOR_DB_PATH = "./data/chroma"
 COLLECTION_NAME = "default"
+DEFAULT_CHUNK_SIZE = 1000
+DEFAULT_CHUNK_OVERLAP = 20
 
 # MISC
 DEFAULT_DOCS_DIRECTORY = "data/doc_examples"

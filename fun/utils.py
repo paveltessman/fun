@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from typing import TypedDict
 
@@ -12,9 +11,15 @@ embed = embedding_functions.OpenAIEmbeddingFunction(
 )
 
 
+class Chunk(TypedDict):
+    index: int
+    content: str
+
+
 class Document(TypedDict):
     name: str
     content: str
+    chunks: list[Chunk]
 
 
 def load_documents(directory: Path | None = None) -> list[Document]:
@@ -22,6 +27,25 @@ def load_documents(directory: Path | None = None) -> list[Document]:
     files = [file for file in directory.glob("**/*.txt") if file.is_file()]
     documents = []
     for file in files:
-        document = Document(name=file.name, content=file.read_text())
+        content = file.read_text()
+        chunks = split_text_to_chunks(content)
+        document = Document(name=file.name, content=content, chunks=chunks)
         documents.append(document)
     return documents
+
+
+def split_text_to_chunks(
+    text: str, *, chunk_size: int | None = None, overlap: int | None = None
+) -> list[Chunk]:
+    chunk_size = chunk_size or config.DEFAULT_CHUNK_SIZE
+    overlap = overlap or config.DEFAULT_CHUNK_OVERLAP
+    chunks = []
+    chunk_start = 0
+    index = 0
+    while chunk_start < len(text):
+        chunk_end = chunk_start + chunk_size
+        chunk = Chunk(index=index, content=text[chunk_start:chunk_end])
+        chunks.append(chunk)
+        chunk_start = chunk_end - overlap
+        index += 1
+    return chunks
