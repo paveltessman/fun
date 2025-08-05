@@ -1,6 +1,7 @@
 import asyncio
 import click
 from fun import gradio_frontend as front
+from fun import nicegui_frontend
 
 
 @click.group()
@@ -25,6 +26,16 @@ def gradio():
 
 
 @gradio.command()
-def start() -> None:
+def start() -> None:  # pyright: ignore[reportRedeclaration]
     """Run a simple gradio frontend and chat with LLM"""
     front.get_app().launch()
+
+
+@cli.group()
+def nicegui():
+    """A frontend app built with NiceGUI"""
+
+
+@nicegui.command()
+def start() -> None:
+    nicegui_frontend.start()

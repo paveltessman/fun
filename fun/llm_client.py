@@ -53,3 +53,9 @@ async def chat(message: str, history: list[dict], *, prompt: str | None = None) 
         model=config.CHAT_MODEL,
     )
     return response.output_text
+
+
+async def get_document_summary(content: str) -> str:
+    question = f"Please, summarize the following document:\n\n{content}"
+    summary = await ask(question=question)
+    return summary
