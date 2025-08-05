@@ -22,8 +22,14 @@ class Chunk:
 class Document:
     name: str
     content: str
-    chunks: list[Chunk]
     embeddings: list[Embedding] | None = None
+    _chunks: list[Chunk] | None = None
+
+    @property
+    def chunks(self) -> list[Chunk]:
+        if not self._chunks:
+            self._chunks = split_text_to_chunks(self.content)
+        return self._chunks
 
     async def create_embedding(self) -> None:
         self.embeddings = await llm_client.get_embeddings(
@@ -37,8 +43,7 @@ def load_documents(directory: Path | None = None) -> list[Document]:
     documents = []
     for file in files:
         content = file.read_text()
-        chunks = split_text_to_chunks(content)
-        document = Document(name=file.name, content=content, chunks=chunks)
+        document = Document(name=file.name, content=content)
         documents.append(document)
     return documents
 
