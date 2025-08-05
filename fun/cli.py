@@ -1,6 +1,6 @@
 import asyncio
 import click
-from fun import frontend as front
+from fun import gradio_frontend as front
 
 
 @click.group()
@@ -20,11 +20,11 @@ def ask() -> None:
 
 
 @cli.group()
-def frontend():
+def gradio():
     """A frontend app built with Gradio"""
 
 
-@frontend.command()
+@gradio.command()
 def start() -> None:
-    """Start the frontend app where you can ask LLM questions"""
-    front.app.launch()
+    """Run a simple gradio frontend and chat with LLM"""
+    front.get_app().launch()

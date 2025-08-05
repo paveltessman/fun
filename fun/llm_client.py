@@ -42,3 +42,14 @@ async def get_embeddings(input_chunks: list[str]) -> list[Embedding]:
             input=input_chunks, model="text-embedding-3-small"
         )
     return response.data
+
+
+async def chat(message: str, history: list[dict], *, prompt: str | None = None) -> str:
+    history.append({"role": "user", "content": message})
+    prompt = prompt or "You're a helpful assistant"
+    response = await invoke(
+        prompt=prompt,
+        messages=history,
+        model=config.CHAT_MODEL,
+    )
+    return response.output_text

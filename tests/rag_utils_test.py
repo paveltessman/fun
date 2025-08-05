@@ -1,15 +1,15 @@
-from fun import utils
-from fun.utils import Chunk
+from fun import rag_utils
+from fun.rag_utils import Chunk
 
 
 def test_load_documents() -> None:
-    documents = utils.load_documents()
+    documents = rag_utils.load_documents()
     assert len(documents) == 21
 
 
 def test_split_text_to_chunks() -> None:
     text = "abcdefghijkl"
-    chunks = utils.split_text_to_chunks(text, chunk_size=4, overlap=1)
+    chunks = rag_utils.split_text_to_chunks(text, chunk_size=4, overlap=1)
     expected_chunks = [
         Chunk(index=0, content="abcd"),
         Chunk(index=1, content="defg"),
